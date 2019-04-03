@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion build_versions.target_sdk
+    defaultConfig {
+        applicationId "ru.mvvm"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            buildConfigField("String", "API_URL", "\"https://raw.githubusercontent.com/SkbkonturMobile/\"")
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "API_URL", "\"https://raw.githubusercontent.com/SkbkonturMobile/\"")
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation deps.kotlin.stdlib
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.design
+    implementation deps.support.core_ktx
+    implementation deps.constraint_layout
+    implementation deps.lifecycle.extensions
+    implementation deps.room.runtime
+    implementation deps.room.rxjava2
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.rxjava2
+    implementation deps.rx.rxjava2
+    implementation deps.rx.android
+    implementation deps.permissions
+    implementation deps.gson
+    implementation deps.navigation.runtime
+    implementation deps.navigation.fragment
+    implementation deps.work.runtime
+    implementation deps.work.runtime_ktx
+    implementation deps.work.rx
+    implementation deps.paging_ktx
+
+    kapt deps.lifecycle.compiler
+    kapt deps.dagger.processor
+    kapt deps.dagger.compiler
+    kapt deps.room.compiler
+}
